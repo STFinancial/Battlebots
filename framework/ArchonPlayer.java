@@ -1,5 +1,6 @@
 package team017.framework;
 
+import battlecode.common.GameActionException;
 import battlecode.common.RobotController;
 import battlecode.engine.instrumenter.lang.System;
 
@@ -9,18 +10,34 @@ public class ArchonPlayer extends BasePlayer {
 	
 		public ArchonPlayer(RobotController rc){
 			super(rc);
-			state = States.EARLY_GAME;
+			
+			//Set nav mode etc
+			
+			//Set strategy states
+			
+			
+			
 		}
 		
-		public void run(){
-			while(true){
-				try{
-					nav.moveAwayFrom(nav.base);
-					myYield();
-				}catch(Exception e){
-					
-				}
-			}
+		@Override
+		public void run() throws GameActionException{
+
+			//State machine for strategy
+			
+			//Scan shit
+			
+			//Message info
+			
+			//Retreat behavior
+			
+			//Help Army target
+			
+			//Update Nav to target
+			
+			//Broadcast targeting info
+			
+			//
+			
 		}
 
 	

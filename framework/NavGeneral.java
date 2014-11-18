@@ -9,63 +9,31 @@ import battlecode.engine.instrumenter.lang.System;
 
 public class NavGeneral {
 
-	MapLocation myLoc;
-	MapLocation base;
-	MapLocation target;
 	RobotController rc;
-	Direction myDir;
+	BasePlayer bp;
+	MapLocation target;
+	int tripTime;
+	int expectedTripTime;
+	NavStates state;
 	
 	
-	public NavGeneral(RobotController rc) {
-		this.rc = rc;
-		myLoc = rc.getLocation();
+	public NavGeneral(BasePlayer basePlayer) {
+		this.bp = basePlayer;
+		rc = bp.rc;
+		//Create new subsystems for pathing algos
 	}
 
-	public boolean canMove(MapLocation loc){
-		if(rc.isMovementActive())
-			return false;
-		if(rc.getFlux() < rc.getType().moveCost)
-			return false;
-		if(myLoc.distanceSquaredTo(loc) > 2)
-			return false;
-		if(myDir != myLoc.directionTo(loc))
-			return false;
-		return(rc.canMove(myDir));
+	//returns ideal direction to move for target
+	public Direction getIdealTargetDirection(){
+		
+		
+		return null;
 	}
 	
-	
-	public void moveTowards(MapLocation loc){
-		Direction newDir = myLoc.directionTo(loc);
-		MapLocation nextTile = myLoc.add(newDir);
-		try {
-			if(canMove(nextTile)){
-				rc.moveForward();
-				myLoc = nextTile;
-			}else{
-				if(newDir != myDir){
-					rc.setDirection(newDir);
-					myDir = newDir;
-				}
-			}
-		} catch (GameActionException e) {
-		}
+	//returns usable direction to move to target (Say if unit is in ideal direction)
+	public Direction getUsableTargetDirection(){
+		
+		return null;
 	}
 	
-	public void moveAwayFrom(MapLocation loc){
-		Direction newDir = myLoc.directionTo(loc);
-		MapLocation nextTile = myLoc.subtract(newDir);
-		try {
-			if(canMove(nextTile)){
-				rc.moveForward();
-				myLoc = nextTile;
-			}else{
-				if(newDir != myDir){
-					//System.out.println(" trying to turn to " + newDir);
-					rc.setDirection(newDir);
-					myDir = newDir;
-				}
-			}
-		} catch (GameActionException e) {
-		}
-	}
 }
