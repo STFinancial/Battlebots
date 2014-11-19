@@ -1,5 +1,6 @@
 package team017.framework;
 
+import battlecode.common.Clock;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
@@ -14,7 +15,8 @@ public class NavGeneral {
 	MapLocation target;
 	int tripTime;
 	int expectedTripTime;
-	//NavStates state;
+	int randCounter;
+	NavStates state;
 	
 	
 	public NavGeneral(BasePlayer basePlayer) {
@@ -34,6 +36,16 @@ public class NavGeneral {
 	public Direction getUsableTargetDirection(){
 		
 		return null;
+	}
+	
+	public void moveRandom() throws GameActionException {
+		if (rc.roundsUntilMovementIdle() == 0) {
+			if (rc.canMove(bp.dir))	{
+				rc.moveForward();
+			} else {
+				rc.setDirection(Constants.directions[(Clock.getBytecodeNum() + randCounter++) % 8]);
+			}
+		}
 	}
 	
 }

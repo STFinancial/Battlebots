@@ -4,7 +4,7 @@ import team017.framework.ArchonPlayer;
 import team017.framework.BasePlayer;
 import team017.framework.SoldierPlayer;
 import battlecode.common.*;
-import battlecode.engine.instrumenter.lang.System;
+//import battlecode.engine.instrumenter.lang.System;
 
 public class RobotPlayer {
 
@@ -36,7 +36,7 @@ public class RobotPlayer {
 			try {
 				bp.loop();
 			} catch (Exception e) {
-				System.out.println("Main loop terminated unexpectedly");
+				//System.out.println("Main loop terminated unexpectedly");
 				e.printStackTrace();
 			}
 		}

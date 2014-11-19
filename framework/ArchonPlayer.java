@@ -2,7 +2,7 @@ package team017.framework;
 
 import battlecode.common.GameActionException;
 import battlecode.common.RobotController;
-import battlecode.engine.instrumenter.lang.System;
+//import battlecode.engine.instrumenter.lang.System;
 
 public class ArchonPlayer extends BasePlayer {
 
@@ -37,7 +37,8 @@ public class ArchonPlayer extends BasePlayer {
 			//Broadcast targeting info
 			
 			//
-			
+			nav.moveRandom();
+			myYield();
 		}
 
 	
