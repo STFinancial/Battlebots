@@ -14,7 +14,7 @@ public class NavGeneral {
 	MapLocation target;
 	int tripTime;
 	int expectedTripTime;
-	NavStates state;
+	//NavStates state;
 	
 	
 	public NavGeneral(BasePlayer basePlayer) {
