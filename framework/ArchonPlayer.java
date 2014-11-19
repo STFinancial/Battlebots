@@ -8,7 +8,7 @@ public class ArchonPlayer extends BasePlayer {
 
 		int ID;
 	
-		public ArchonPlayer(RobotController rc){
+		public ArchonPlayer(RobotController rc) {
 			super(rc);
 			
 			//Set nav mode etc
@@ -20,7 +20,7 @@ public class ArchonPlayer extends BasePlayer {
 		}
 		
 		@Override
-		public void run() throws GameActionException{
+		public void run() throws GameActionException {
 
 			//State machine for strategy
 			

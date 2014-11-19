@@ -4,30 +4,22 @@ import battlecode.common.RobotController;
 
 public class SoldierPlayer extends BasePlayer {
 
-		public SoldierPlayer(RobotController rc){
+		public SoldierPlayer(RobotController rc) {
 			super(rc);
 		}
 		
-		public void run(){
-			while(true){
-				try{
-					
-					
-					
-					
-					
-					
-					
-					
+		public void run() {
+			while(true) {
+				
+				try {
 					
 					
 					
 					
 					myYield();
-				}catch(Exception e){
+				} catch(Exception e) {
 					
 				}
 			}
 		}
-	
 }

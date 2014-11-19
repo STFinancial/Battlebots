@@ -19,6 +19,7 @@ public class NavGeneral {
 	NavStates state;
 	
 	
+	
 	public NavGeneral(BasePlayer basePlayer) {
 		this.bp = basePlayer;
 		rc = bp.rc;
@@ -43,7 +44,7 @@ public class NavGeneral {
 			if (rc.canMove(bp.dir))	{
 				rc.moveForward();
 			} else {
-				rc.setDirection(Constants.directions[(Clock.getBytecodeNum() + randCounter++) % 8]);
+				rc.setDirection(Constants.directions[Utility.nextInt(8)]);
 			}
 		}
 	}

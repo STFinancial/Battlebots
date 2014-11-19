@@ -30,6 +30,7 @@ public class RobotPlayer {
 				break;
 			}
 		} catch (Exception e) {
+			
 		}
 		
 		while (true) {
@@ -42,7 +43,7 @@ public class RobotPlayer {
 		}
 	}
 	
-	public void debug(String string){
+	public void debug(String string) {
 		System.out.println(string); //Illegal class load
 	}
 }

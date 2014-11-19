@@ -36,6 +36,8 @@ public abstract class BasePlayer {
 	
 	public BasePlayer(RobotController rc) {
 		this.rc = rc;
+		ID = rc.getRobot().getID();
+		Utility.seed(Clock.getBytecodeNum() + 1, ID + 1);
 		
 		type = rc.getType();
 		maxEnergon = type.maxEnergon;
@@ -44,13 +46,14 @@ public abstract class BasePlayer {
 		team = rc.getTeam();
 		spawnRound = Clock.getRoundNum();
 		spawnLoc = rc.getLocation();
-		ID = rc.getRobot().getID();
+		
 		nav = new NavGeneral(this); 
+		
 	}
 
 	public abstract void run() throws GameActionException;
 	
-	public void myYield(){
+	public void myYield() {
 		rc.yield();
 	}
 	
@@ -64,7 +67,7 @@ public abstract class BasePlayer {
 	}
 
 	public void loop() {
-		while(true){
+		while(true) {
 			
 			
 			updateRoundVariables();
