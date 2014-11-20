@@ -15,8 +15,9 @@ public class NavGeneral {
 	MapLocation target;
 	int tripTime;
 	int expectedTripTime;
-	int randCounter;
+	int randCounter; 
 	NavStates state;
+	int lastMove;
 	
 	
 	
@@ -41,8 +42,12 @@ public class NavGeneral {
 	
 	public void moveRandom() throws GameActionException {
 		if (rc.roundsUntilMovementIdle() == 0) {
-			if (rc.canMove(bp.dir))	{
-				rc.moveForward();
+			if (!bp.map.isWall(bp.locFront.x,bp.locFront.y) && bp.map.isSensed(bp.locFront.x,bp.locFront.y))	{
+				//There is no wall, Unknown if tower/other robot is in front
+				if(rc.canMove(bp.dir)){ 
+					rc.moveForward();
+					lastMove = bp.round;
+				}
 			} else {
 				rc.setDirection(Constants.directions[Utility.nextInt(8)]);
 			}

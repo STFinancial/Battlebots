@@ -27,23 +27,25 @@ public class RobotPlayer {
 			case SCORCHER:
 				break;
 			default:
+				bp = new ArchonPlayer(rc);
 				break;
 			}
 		} catch (Exception e) {
-			
+			System.out.println("Exception creating robot");
+			e.printStackTrace();
 		}
 		
 		while (true) {
 			try {
-				bp.loop();
+				if(bp == null){
+					//System.out.println("WHY IS BP NULL");
+				}else{
+					bp.loop();
+				}
 			} catch (Exception e) {
-				//System.out.println("Main loop terminated unexpectedly");
+				System.out.println("Main loop terminated unexpectedly");
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public void debug(String string) {
-		System.out.println(string); //Illegal class load
 	}
 }

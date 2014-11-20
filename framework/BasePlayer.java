@@ -13,6 +13,7 @@ public abstract class BasePlayer {
 	//Important Helper Classes
 	public final RobotController rc;
 	public final NavGeneral nav;
+	public final Map map;
 	//MapData
 	//Radar
 	//Messenger
@@ -23,7 +24,7 @@ public abstract class BasePlayer {
 	public final double maxEnergon, maxFlux;
 	public final Team team;
 	public final int ID;
-	public final MapLocation base;
+	public final MapLocation home;
 	public final int spawnRound;
 	public final MapLocation spawnLoc;
 	
@@ -42,11 +43,15 @@ public abstract class BasePlayer {
 		type = rc.getType();
 		maxEnergon = type.maxEnergon;
 		maxFlux = type.maxFlux;
-		base = rc.sensePowerCore().getLocation();
+		home = rc.sensePowerCore().getLocation();
 		team = rc.getTeam();
 		spawnRound = Clock.getRoundNum();
 		spawnLoc = rc.getLocation();
 		
+		updateRoundVariables();
+		
+		//Nav needs Map
+		map = new Map(this);
 		nav = new NavGeneral(this); 
 		
 	}
@@ -69,17 +74,13 @@ public abstract class BasePlayer {
 	public void loop() {
 		while(true) {
 			
-			
 			updateRoundVariables();
-			
 			
 			try {
 				run();
 			} catch (GameActionException e) {
 				e.printStackTrace();
 			}
-			
-			
 			
 		}
 		

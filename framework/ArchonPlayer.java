@@ -11,6 +11,8 @@ public class ArchonPlayer extends BasePlayer {
 		public ArchonPlayer(RobotController rc) {
 			super(rc);
 			
+			map.senseAllTiles();
+			rc.breakpoint();
 			//Set nav mode etc
 			
 			//Set strategy states
@@ -25,6 +27,9 @@ public class ArchonPlayer extends BasePlayer {
 			//State machine for strategy
 			
 			//Scan shit
+			if (nav.lastMove == (round - 1)) {
+				map.senseTileAfterMove(dir);
+			}
 			
 			//Message info
 			
