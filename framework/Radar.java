@@ -72,7 +72,7 @@ public class Radar {
 				enemyScanNeeded = false;
 				resetEnemyData();
 			} else {
-				ally = false;
+				enemy = false;
 			}
 		}
 		
@@ -95,9 +95,7 @@ public class Radar {
 					e.printStackTrace();
 				}
 			}
-			rc.setIndicatorString(0,"last scanned: " + lastScanRound);
-			rc.setIndicatorString(1,"I sense: " + allyNum + " allies" + allyAdjNum + " adj");
-			rc.setIndicatorString(2,"I sense: " + enemyNum + " enemy" + enemyArchonNum + " enemy Archons");
+			rc.setIndicatorString(1,allyNum + " allies " + allyAdjNum + " adj " + enemyNum + " enemy " + enemyArchonNum + " enemy Archons");
 		}
 	}
 
@@ -105,12 +103,14 @@ public class Radar {
 	private void resetAllyData() {
 		allyNum = 0;
 		allyAdjNum = 0;
+		allyScanNeeded = false;
 	}
 
 	// When we do a new Enemy scan
 	private void resetEnemyData() {
 		enemyNum = 0;
 		enemyArchonNum = 0;
+		enemyScanNeeded = false;
 	}
 
 	private void addEnemy(RobotInfo info) {

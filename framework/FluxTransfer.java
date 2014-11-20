@@ -26,7 +26,7 @@ public class FluxTransfer {
 			if(info.flux < Constants.FLUX_DECENT){
 				double toTransfer = Math.min(Constants.FLUX_DECENT - info.flux, bp.flux - Constants.FLUX_MIN);
 				if(toTransfer > 5){
-					bp.flux -= 5;
+					bp.flux -= toTransfer;
 					try {
 						bp.rc.transferFlux(info.location, info.type.level, toTransfer);
 					} catch (GameActionException e) {

@@ -48,12 +48,25 @@ public abstract class BasePlayer {
 		spawnLoc = rc.getLocation();
 
 		updateRoundVariables();
-
+		int bc1 = 0, bc2 = 0, bc3 = 0, bc4 = 0;
 		map = new Map(this);
+		
 		nav = new NavGeneral(this); // Nav needs Map
+		bc1 = Clock.getBytecodeNum();
+		rc.setIndicatorString(0, "InitByteCodes: " + bc1 + " " + bc2 + " " + bc3 + " " + bc4 + " " );
+		
 		cache = new Cache(this);
+		bc2 = Clock.getBytecodeNum();
+		rc.setIndicatorString(0, "InitByteCodes: " + bc1 + " " + bc2 + " " + bc3 + " " + bc4 + " " );
+		
 		radar = new Radar(this);
+		bc3 = Clock.getBytecodeNum();
+		rc.setIndicatorString(0, "InitByteCodes: " + bc1 + " " + bc2 + " " + bc3 + " " + bc4 + " " );
+		
 		fluxer = new FluxTransfer(this);
+		bc4 = Clock.getBytecodeNum();
+		rc.setIndicatorString(0, "InitByteCodes: " + bc1 + " " + bc2 + " " + bc3 + " " + bc4 + " " );
+		
 
 	}
 
@@ -76,9 +89,9 @@ public abstract class BasePlayer {
 	public void loop() {
 		while (true) {
 
-			updateRoundVariables();
 
 			try {
+				updateRoundVariables();
 				run();
 			} catch (GameActionException e) {
 				e.printStackTrace();
