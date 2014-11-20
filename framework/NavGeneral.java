@@ -15,43 +15,44 @@ public class NavGeneral {
 	MapLocation target;
 	int tripTime;
 	int expectedTripTime;
-	int randCounter; 
+	int randCounter;
 	NavStates state;
 	int lastMove;
-	
-	
-	
+
 	public NavGeneral(BasePlayer basePlayer) {
 		this.bp = basePlayer;
 		rc = bp.rc;
-		//Create new subsystems for pathing algos
+		// Create new subsystems for pathing algos
 	}
 
-	//returns ideal direction to move for target
-	public Direction getIdealTargetDirection(){
-		
-		
+	// returns ideal direction to move for target
+	public Direction getIdealTargetDirection() {
+
 		return null;
 	}
-	
-	//returns usable direction to move to target (Say if unit is in ideal direction)
-	public Direction getUsableTargetDirection(){
-		
+
+	// returns usable direction to move to target (Say if unit is in ideal
+	// direction)
+	public Direction getUsableTargetDirection() {
+
 		return null;
 	}
-	
+
+	public boolean moveReady() {
+		return rc.roundsUntilMovementIdle() == 0;
+	}
+
+	// Eventually we would prefer to check our Map/Radar for wall/robots
+	public boolean canMove() {
+		return rc.canMove(bp.dir);
+	}
+
 	public void moveRandom() throws GameActionException {
-		if (rc.roundsUntilMovementIdle() == 0) {
-			if (!bp.map.isWall(bp.locFront.x,bp.locFront.y) && bp.map.isSensed(bp.locFront.x,bp.locFront.y))	{
-				//There is no wall, Unknown if tower/other robot is in front
-				if(rc.canMove(bp.dir)){ 
-					rc.moveForward();
-					lastMove = bp.round;
-				}
-			} else {
-				rc.setDirection(Constants.directions[Utility.nextInt(8)]);
-			}
+		if (canMove()) {
+			rc.moveForward();
+			lastMove = bp.round;
+		} else {
+			rc.setDirection(Constants.directions[Utility.nextInt(8)]);
 		}
 	}
-	
 }
