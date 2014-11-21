@@ -37,6 +37,9 @@ public class Radar {
 
 	private int enemyNum;
 	private int enemyArchonNum;
+	
+	public RobotInfo nearestEnemy;
+	public int nearestEnemyR2;
 
 	public Radar(BasePlayer bp) {
 		this.bp = bp;
@@ -111,6 +114,7 @@ public class Radar {
 		enemyNum = 0;
 		enemyArchonNum = 0;
 		enemyScanNeeded = false;
+		nearestEnemy = null;
 	}
 
 	private void addEnemy(RobotInfo info) {
@@ -122,7 +126,18 @@ public class Radar {
 		enemyInfoById[id] = info;
 		enemyInfoScanTime[id] = bp.round;
 		enemyNum++;
-
+		
+		if(nearestEnemy == null){
+			nearestEnemy = info;
+			nearestEnemyR2 = bp.loc.distanceSquaredTo(info.location);
+		}else{
+			int distance = bp.loc.distanceSquaredTo(info.location);
+			if(distance < nearestEnemyR2){
+				nearestEnemy = info;
+				nearestEnemyR2 = distance;
+			}
+		}
+		
 		switch (info.type) {
 		case ARCHON:
 			enemyArchonId[enemyArchonNum++] = id;
