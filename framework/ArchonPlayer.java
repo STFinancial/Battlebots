@@ -24,14 +24,13 @@ public class ArchonPlayer extends BasePlayer {
 		}
 
 		map.senseAllTiles(); // Cost a shit ton, skips first turn
+		map.senseAllEdges();
 	}
 
 	@Override
 	public void run() throws GameActionException {
 		if (round < Constants.TURTLE_TILL) {
 			if (loc.distanceSquaredTo(cache.getClosestArchon()) < GameConstants.PRODUCTION_PENALTY_R2) {
-				rc.setIndicatorString(0, "Distance to nearest Archon: " + loc.distanceSquaredTo(cache.getClosestArchon()) + " should be "
-						+ GameConstants.PRODUCTION_PENALTY_R2);
 				if (nav.moveReady()) {
 					nav.moveRandom();
 				}
@@ -53,7 +52,12 @@ public class ArchonPlayer extends BasePlayer {
 
 			// Scan shit
 			if (nav.lastMove == (round - 1)) {
-				// map.senseTileAfterMove(dir);
+				// 800-1200 cost
+				map.senseTileAfterMove(dir);
+				map.senseEdgeAfterMove(dir);
+
+				rc.setIndicatorString(0, "Xmin: " + map.edgeXMin + " Xmax: " + map.edgeXMax + " Ymin: " + map.edgeYMin + " Ymax: "
+						+ map.edgeYMax);
 			}
 
 			// Message info

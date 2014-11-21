@@ -23,7 +23,7 @@ public class Map {
 	 * double the size of the world(60 max) so we won't have toroidal shit Our
 	 * Home base will always be at cache coords 64,64
 	 */
-	static final int CACHE_SIZE = 128;
+	static final int CACHE_SIZE = 256; //Maximum Cache coordinate could be archon scan of 10 + mapwidth of 60 + powercore default of 64
 	static final int HOME_CACHE_COORD = 64;
 	int homeWorldX, homeWorldY;
 
@@ -160,8 +160,118 @@ public class Map {
 	 * till edge value is found and then updated Probably only called at start
 	 * of game by archons, maybe scouts
 	 */
-	public void senseEdges() {
-
+	public void senseAllEdges() {
+		MapLocation scanLoc;
+		MapLocation loc = bp.loc;
+		TerrainTile tile;
+		//North
+		if(edgeYMin == 0){
+			scanLoc = loc.add(0,-senseRadius);
+			tile = rc.senseTerrainTile(scanLoc);
+			if(tile != null){
+				if(tile == TerrainTile.OFF_MAP){
+					while(tile == TerrainTile.OFF_MAP){
+						scanLoc = scanLoc.add(0,1);
+						tile = rc.senseTerrainTile(scanLoc);
+					}
+					edgeYMin = worldToCacheY(scanLoc.y - 1);
+					}
+			}
+		}
+		//East
+		if(edgeXMax == 0){
+			scanLoc = loc.add(senseRadius,0);
+			tile = rc.senseTerrainTile(scanLoc);
+			if(tile != null){
+				if(tile == TerrainTile.OFF_MAP){
+					while(tile == TerrainTile.OFF_MAP){
+						scanLoc = scanLoc.add(-1,0);
+						tile = rc.senseTerrainTile(scanLoc);
+					}
+					edgeXMax = worldToCacheX(scanLoc.x + 1);				}
+			}
+		}
+		//South
+		if(edgeYMax == 0){
+			scanLoc = loc.add(0,senseRadius);
+			tile = rc.senseTerrainTile(scanLoc);
+			if(tile != null){
+				if(tile == TerrainTile.OFF_MAP){
+					while(tile == TerrainTile.OFF_MAP){
+						scanLoc = scanLoc.add(0,-1);
+						tile = rc.senseTerrainTile(scanLoc);
+					}
+					edgeYMax = worldToCacheY(scanLoc.y + 1);				}
+			}
+		}
+		//West
+		if(edgeXMin == 0){
+			scanLoc = loc.add(-senseRadius,0);
+			tile = rc.senseTerrainTile(scanLoc);
+			if(tile != null){
+				if(tile == TerrainTile.OFF_MAP){
+					while(tile == TerrainTile.OFF_MAP){
+						scanLoc = scanLoc.add(1,0);
+						tile = rc.senseTerrainTile(scanLoc);
+					}
+					edgeXMin = worldToCacheX(scanLoc.x - 1);				}
+			}
+		}
+	}
+	
+	public void senseEdgeAfterMove(Direction dir){
+		switch(dir){
+		case NORTH_EAST:
+			senseEdgeAfterMove(Direction.EAST);
+			senseEdgeAfterMove(Direction.NORTH);
+			break;
+		case NORTH_WEST:
+			senseEdgeAfterMove(Direction.WEST);
+			senseEdgeAfterMove(Direction.NORTH);
+			break;
+		case SOUTH_EAST:
+			senseEdgeAfterMove(Direction.EAST);
+			senseEdgeAfterMove(Direction.SOUTH);
+			break;
+		case SOUTH_WEST:
+			senseEdgeAfterMove(Direction.SOUTH);
+			senseEdgeAfterMove(Direction.WEST);
+			break;
+		case EAST:
+			if(edgeXMax == 0){
+				MapLocation scanLoc = bp.loc.add(senseRadius,0);
+				TerrainTile tile = rc.senseTerrainTile(scanLoc);
+				if(tile == TerrainTile.OFF_MAP)
+					edgeXMax = worldToCacheX(scanLoc.x);
+			}
+			break;
+		case NORTH:
+			if(edgeYMin == 0){
+				MapLocation scanLoc = bp.loc.add(0,-senseRadius);
+				TerrainTile tile = rc.senseTerrainTile(scanLoc);
+				if(tile == TerrainTile.OFF_MAP)
+					edgeYMin = worldToCacheY(scanLoc.y);
+			}
+			break;
+		case SOUTH:
+			if(edgeYMax == 0){
+				MapLocation scanLoc = bp.loc.add(0,senseRadius);
+				TerrainTile tile = rc.senseTerrainTile(scanLoc);
+				if(tile == TerrainTile.OFF_MAP)
+					edgeYMax = worldToCacheY(scanLoc.y);
+			}
+			break;
+		case WEST:
+			if(edgeXMin == 0){
+				MapLocation scanLoc = bp.loc.add(-senseRadius,0);
+				TerrainTile tile = rc.senseTerrainTile(scanLoc);
+				if(tile == TerrainTile.OFF_MAP)
+					worldToCacheX(edgeXMin = scanLoc.x);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	// Special Thanks to Fun Gamers for these constants
