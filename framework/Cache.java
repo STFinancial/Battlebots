@@ -26,10 +26,8 @@ public class Cache {
 
 	private boolean[] isAdjacentGameObjectGroundCached;
 	private boolean[] isAdjacentGameObjectAirCached;
-	private GameObject[] adjacentGameObjectsGround = new GameObject[Direction
-			.values().length];
-	private GameObject[] adjacentGameObjectsAir = new GameObject[Direction
-			.values().length];
+	private GameObject[] adjacentGameObjectsGround = new GameObject[Direction.values().length];
+	private GameObject[] adjacentGameObjectsAir = new GameObject[Direction.values().length];
 	private int adjacentGameObjectsTime = -1;
 
 	private MapLocation[] capturablePowerCores;
@@ -58,8 +56,7 @@ public class Cache {
 			for (MapLocation archon : getAlliedArchons()) {
 				int distance = bp.loc.distanceSquaredTo(archon);
 				// Don't count yourself as an archon
-				if (!(bp.type == RobotType.ARCHON && distance == 0)
-						&& distance < closestDistance) {
+				if (!(bp.type == RobotType.ARCHON && distance == 0) && distance < closestDistance) {
 					closestArchon = archon;
 					closestDistance = distance;
 				}
@@ -84,8 +81,7 @@ public class Cache {
 		return moveableDirections;
 	}
 
-	public GameObject getAdjacentGameObject(Direction d, RobotLevel level)
-			throws GameActionException {
+	public GameObject getAdjacentGameObject(Direction d, RobotLevel level) throws GameActionException {
 		if (bp.round > adjacentGameObjectsTime) {
 			isAdjacentGameObjectGroundCached = new boolean[Direction.values().length];
 			isAdjacentGameObjectAirCached = new boolean[Direction.values().length];
@@ -96,8 +92,7 @@ public class Cache {
 			if (isAdjacentGameObjectAirCached[d.ordinal()]) {
 				return adjacentGameObjectsAir[d.ordinal()];
 			} else {
-				GameObject obj = rc.senseObjectAtLocation(
-						rc.getLocation().add(d), level);
+				GameObject obj = rc.senseObjectAtLocation(rc.getLocation().add(d), level);
 				adjacentGameObjectsAir[d.ordinal()] = obj;
 				isAdjacentGameObjectAirCached[d.ordinal()] = true;
 				return obj;
@@ -106,8 +101,7 @@ public class Cache {
 			if (isAdjacentGameObjectGroundCached[d.ordinal()]) {
 				return adjacentGameObjectsGround[d.ordinal()];
 			} else {
-				GameObject obj = rc.senseObjectAtLocation(
-						rc.getLocation().add(d), level);
+				GameObject obj = rc.senseObjectAtLocation(rc.getLocation().add(d), level);
 				adjacentGameObjectsGround[d.ordinal()] = obj;
 				isAdjacentGameObjectGroundCached[d.ordinal()] = true;
 				return obj;

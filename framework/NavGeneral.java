@@ -31,8 +31,7 @@ public class NavGeneral {
 		return null;
 	}
 
-	// returns usable direction to move to target (Say if unit is in ideal
-	// direction)
+	// returns usable direction to move to target (Say if unit is in ideal direction)
 	public Direction getUsableTargetDirection() {
 
 		return null;

@@ -16,16 +16,16 @@ public class FluxTransfer {
 	}
 
 	public void manageFlux() {
-		if (bp.flux < Constants.FLUX_MIN) 
+		if (bp.flux < Constants.FLUX_MIN)
 			return;
 		bp.radar.scan(true, false);
-		for(int i = 0; i < bp.radar.allyAdjNum; i++){
+		for (int i = 0; i < bp.radar.allyAdjNum; i++) {
 			RobotInfo info = bp.radar.allyAdj[i];
-			if(info.type == RobotType.TOWER)
+			if (info.type == RobotType.TOWER)
 				continue;
-			if(info.flux < Constants.FLUX_DECENT){
+			if (info.flux < Constants.FLUX_DECENT) {
 				double toTransfer = Math.min(Constants.FLUX_DECENT - info.flux, bp.flux - Constants.FLUX_MIN);
-				if(toTransfer > 5){
+				if (toTransfer > 5) {
 					bp.flux -= toTransfer;
 					try {
 						bp.rc.transferFlux(info.location, info.type.level, toTransfer);
@@ -35,8 +35,7 @@ public class FluxTransfer {
 				}
 			}
 		}
-			
-		
+
 	}
 
 }

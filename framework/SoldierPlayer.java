@@ -17,16 +17,16 @@ public class SoldierPlayer extends BasePlayer {
 	public void run() throws GameActionException {
 
 		// State machine for strategy
-		if(flux > 5){
-			if(rc.roundsUntilAttackIdle() < 2){
+		if (flux > 5) {
+			if (rc.roundsUntilAttackIdle() < 2) {
 				radar.scan(false, true);
 				RobotInfo enemy = radar.nearestEnemy;
-				if(enemy != null){
-					if(rc.roundsUntilAttackIdle() == 0 && rc.canAttackSquare(enemy.location)){
+				if (enemy != null) {
+					if (rc.roundsUntilAttackIdle() == 0 && rc.canAttackSquare(enemy.location)) {
 						rc.attackSquare(enemy.location, enemy.type.level);
-					}else if(nav.moveReady()){
+					} else if (nav.moveReady()) {
 						Direction enemyDir = loc.directionTo(enemy.location);
-						if(dir != enemyDir && dir != Direction.OMNI){
+						if (dir != enemyDir && dir != Direction.OMNI) {
 							rc.setDirection(enemyDir);
 						}
 					}
@@ -35,7 +35,7 @@ public class SoldierPlayer extends BasePlayer {
 		}
 
 		if (flux > 10) {
-			if(nav.moveReady()){
+			if (nav.moveReady()) {
 				nav.moveRandom();
 			}
 		}

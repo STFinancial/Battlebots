@@ -15,27 +15,23 @@ public class ArchonPlayer extends BasePlayer {
 
 	public ArchonPlayer(RobotController rc) {
 		super(rc);
-		
+
 		try {
 			nav.moveRandom();
 		} catch (GameActionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		map.senseAllTiles(); //Cost a shit ton, skips first turn
+
+		map.senseAllTiles(); // Cost a shit ton, skips first turn
 	}
 
 	@Override
 	public void run() throws GameActionException {
 		if (round < Constants.TURTLE_TILL) {
 			if (loc.distanceSquaredTo(cache.getClosestArchon()) < GameConstants.PRODUCTION_PENALTY_R2) {
-				rc.setIndicatorString(
-						0,
-						"Distance to nearest Archon: "
-								+ loc.distanceSquaredTo(cache
-										.getClosestArchon()) + " should be "
-								+ GameConstants.PRODUCTION_PENALTY_R2);
+				rc.setIndicatorString(0, "Distance to nearest Archon: " + loc.distanceSquaredTo(cache.getClosestArchon()) + " should be "
+						+ GameConstants.PRODUCTION_PENALTY_R2);
 				if (nav.moveReady()) {
 					nav.moveRandom();
 				}

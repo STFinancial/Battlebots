@@ -9,11 +9,11 @@ import battlecode.common.RobotType;
 public class Radar {
 
 	/*
-	 * Works along side the MAP class to store battlefied information However
-	 * Radar focuses on Moving Units both allied and enemy Counts Numbers of
-	 * each side, aids in Fight vs Retreat calculations
+	 * Works along side the MAP class to store battlefied information However Radar focuses on
+	 * Moving Units both allied and enemy Counts Numbers of each side, aids in Fight vs Retreat
+	 * calculations
 	 */
-	private static final int MAX_ROBOT_ID = 4096; //no clue what it actually is
+	private static final int MAX_ROBOT_ID = 4096; // no clue what it actually is
 
 	private BasePlayer bp;
 	private RobotController rc;
@@ -28,7 +28,7 @@ public class Radar {
 
 	private int allyNum;
 	public int allyAdjNum;
-	public RobotInfo[] allyAdj = new RobotInfo[17]; //8 ground spots and 9 air spots
+	public RobotInfo[] allyAdj = new RobotInfo[17]; // 8 ground spots and 9 air spots
 
 	// Enemy data
 	private RobotInfo[] enemyInfoById = new RobotInfo[MAX_ROBOT_ID];
@@ -37,7 +37,7 @@ public class Radar {
 
 	private int enemyNum;
 	private int enemyArchonNum;
-	
+
 	public RobotInfo nearestEnemy;
 	public int nearestEnemyR2;
 
@@ -78,7 +78,7 @@ public class Radar {
 				enemy = false;
 			}
 		}
-		
+
 		if (ally || enemy) {
 			for (int i = 0; i < robots.length; i++) {
 				Robot r = robots[i];
@@ -98,7 +98,7 @@ public class Radar {
 					e.printStackTrace();
 				}
 			}
-			rc.setIndicatorString(1,allyNum + " allies " + allyAdjNum + " adj " + enemyNum + " enemy " + enemyArchonNum + " enemy Archons");
+			rc.setIndicatorString(1, allyNum + " allies " + allyAdjNum + " adj " + enemyNum + " enemy " + enemyArchonNum + " enemy Archons");
 		}
 	}
 
@@ -126,18 +126,18 @@ public class Radar {
 		enemyInfoById[id] = info;
 		enemyInfoScanTime[id] = bp.round;
 		enemyNum++;
-		
-		if(nearestEnemy == null){
+
+		if (nearestEnemy == null) {
 			nearestEnemy = info;
 			nearestEnemyR2 = bp.loc.distanceSquaredTo(info.location);
-		}else{
+		} else {
 			int distance = bp.loc.distanceSquaredTo(info.location);
-			if(distance < nearestEnemyR2){
+			if (distance < nearestEnemyR2) {
 				nearestEnemy = info;
 				nearestEnemyR2 = distance;
 			}
 		}
-		
+
 		switch (info.type) {
 		case ARCHON:
 			enemyArchonId[enemyArchonNum++] = id;
