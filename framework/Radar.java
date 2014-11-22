@@ -169,5 +169,13 @@ public class Radar {
 	public int getTeamStrength() {
 		return allyNum - enemyNum;
 	}
+	
+	/**
+	 * 
+	 * @return - The number of enemies shown on the current robot's radar.
+	 */
+	public int getNumEnemies() {
+		return enemyNum;
+	}
 
 }

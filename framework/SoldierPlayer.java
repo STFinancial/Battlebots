@@ -13,6 +13,10 @@ public class SoldierPlayer extends BasePlayer {
 		super(rc);
 	}
 
+	public enum MicroState {
+		SWARM, ATTACK, RETREAT, RUSH, BACKOFF, WAIT;
+	}
+	
 	@Override
 	public void run() throws GameActionException {
 

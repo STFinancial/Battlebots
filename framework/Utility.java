@@ -7,11 +7,8 @@ public class Utility {
 
 	/**
 	 * Seeds the RNG. Should be called once from BasePlayer.
-	 * 
-	 * @param seed1
-	 *            - The number of bytes executed.
-	 * @param seed2
-	 *            - The robot ID number.
+	 * @param seed1 - The number of bytes executed.
+	 * @param seed2 - The robot ID number.
 	 */
 	public static void seed(int seed1, int seed2) {
 		randNum = (((seed1 * seed2) * a) % m) >>> 1;
@@ -19,9 +16,7 @@ public class Utility {
 
 	/**
 	 * Returns the next random number between 0 (inclusive) and n (exclusive).
-	 * 
-	 * @param n
-	 *            - Exclusive upper bound on next random
+	 * @param n - Exclusive upper bound on next random
 	 * **/
 	public static int nextInt(int n) {
 		randNum = ((a * randNum) % m) >>> 1;
