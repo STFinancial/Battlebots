@@ -59,7 +59,7 @@ public class UnequalPowerStructure {
 	 * @return - The known enemy controlled power node nearest to the specified location.
 	 */
 	public PowerNode getEnemyNodeNearestTo(MapLocation loc) {
-	
+		return null; //TODO
 	}
 	
 //	/**
@@ -73,6 +73,7 @@ public class UnequalPowerStructure {
 	 * @return - The known friendly power node nearest to the specified location.
 	 */
 	public PowerNode getFriendlyNodeNearestTo(MapLocation loc) {
+		return null; //TODO
 		
 	}
 	
@@ -80,6 +81,7 @@ public class UnequalPowerStructure {
 	 * @return - The known power node nearest to the specified location.
 	 */
 	public PowerNode getNodeNearestTo(MapLocation loc) {
+		return null; //TODO
 		
 	}
 	

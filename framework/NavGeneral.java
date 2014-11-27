@@ -13,28 +13,19 @@ public class NavGeneral {
 	RobotController rc;
 	BasePlayer bp;
 	MapLocation target;
+	Direction targetDir;
 	int tripTime;
 	int expectedTripTime;
 	int randCounter;
 	NavStates state;
 	int lastMove;
 
-	public NavGeneral(BasePlayer basePlayer) {
-		this.bp = basePlayer;
+	NavBug bug;
+	public NavGeneral(BasePlayer bp) {
+		this.bp = bp;
 		rc = bp.rc;
 		// Create new subsystems for pathing algos
-	}
-
-	// returns ideal direction to move for target
-	public Direction getIdealTargetDirection() {
-
-		return null;
-	}
-
-	// returns usable direction to move to target (Say if unit is in ideal direction)
-	public Direction getUsableTargetDirection() {
-
-		return null;
+		bug = new NavBug(bp);
 	}
 
 	public boolean moveReady() {
@@ -43,7 +34,7 @@ public class NavGeneral {
 
 	// Eventually we would prefer to check our Map/Radar for wall/robots
 	public boolean canMove() {
-		return rc.canMove(bp.dir);
+		return bp.cache.canMove(bp.dir);
 	}
 
 	public void moveRandom() throws GameActionException {
@@ -53,5 +44,38 @@ public class NavGeneral {
 		} else {
 			rc.setDirection(Constants.directions[Utility.nextInt(8)]);
 		}
+	}
+
+	/*
+	 * Computes movement from Bug algorithm, assumes move is ready when called
+	 */
+	public void bugMove() throws GameActionException {
+			targetDir = bug.computeMove();
+			if(targetDir == Direction.NONE)
+				return;
+			if(bp.dir == targetDir){
+				if(canMove()){
+					rc.moveForward();
+					lastMove = bp.round;
+				}else{
+					//Add some timer to try other ways if I can't move after a set number of turns
+				}
+			}else{
+				rc.setDirection(targetDir);
+				lastMove = bp.round;
+			}
+	}
+	/*
+	 * Tells if bug is currently tracking a target
+	 */
+	public boolean bugHasTarget(){
+		return bug.hasTarget();
+	}
+	
+	/*
+	 * Sets a target for the bug algorithim
+	 */
+	public void bugSetTarget(MapLocation tar){
+		bug.newTarget(tar);
 	}
 }

@@ -4,6 +4,7 @@ import battlecode.common.Clock;
 import battlecode.common.GameActionException;
 import battlecode.common.GameConstants;
 import battlecode.common.GameObject;
+import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.RobotLevel;
 //import battlecode.engine.instrumenter.lang.System;
@@ -11,24 +12,27 @@ import battlecode.common.RobotType;
 
 public class ArchonPlayer extends BasePlayer {
 
-	int ID;
 
 	public ArchonPlayer(RobotController rc) {
 		super(rc);
-
+		nav.bugSetTarget(new MapLocation(home.x + ID/4 - 5 * (ID%2), home.y + ID/4 - 5));
+		/*
 		try {
-			nav.moveRandom();
+			rc.setDirection(home.directionTo(loc));
 		} catch (GameActionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		map.senseAllTiles(); // Cost a shit ton, skips first turn
 		map.senseAllEdges();
+		*/
 	}
 
 	@Override
 	public void run() throws GameActionException {
+		/*
 		if (round < Constants.TURTLE_TILL) {
 			if (loc.distanceSquaredTo(cache.getClosestArchon()) < GameConstants.PRODUCTION_PENALTY_R2) {
 				if (nav.moveReady()) {
@@ -85,7 +89,10 @@ public class ArchonPlayer extends BasePlayer {
 			fluxer.manageFlux();
 
 		}
-
+		*/
+		if(nav.moveReady()){
+			nav.bugMove();
+		}
 		myYield();
 	}
 

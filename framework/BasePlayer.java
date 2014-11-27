@@ -37,12 +37,13 @@ public abstract class BasePlayer {
 	public BasePlayer(RobotController rc) {
 		this.rc = rc;
 		ID = rc.getRobot().getID();
-		Utility.seed(Clock.getBytecodeNum() + 1, ID + 1);
 
 		type = rc.getType();
 		maxEnergon = type.maxEnergon;
 		maxFlux = type.maxFlux;
 		home = rc.sensePowerCore().getLocation();
+
+		Utility.seed(Clock.getBytecodeNum() + 1 + home.x, ID + 1);
 		team = rc.getTeam();
 		spawnRound = Clock.getRoundNum();
 		spawnLoc = rc.getLocation();

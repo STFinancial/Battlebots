@@ -80,6 +80,15 @@ public class Cache {
 		}
 		return moveableDirections;
 	}
+	
+	public boolean canMove(Direction dir){
+		if (bp.round > moveableDirectionsTime) {
+			for (int i = 0; i < 8; i++)
+				moveableDirections[i] = rc.canMove(Constants.directions[i]);
+			moveableDirectionsTime = bp.round;
+		}
+		return moveableDirections[dir.ordinal()];
+	}
 
 	public GameObject getAdjacentGameObject(Direction d, RobotLevel level) throws GameActionException {
 		if (bp.round > adjacentGameObjectsTime) {

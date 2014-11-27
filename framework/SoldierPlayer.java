@@ -30,7 +30,7 @@ public class SoldierPlayer extends BasePlayer {
 						rc.attackSquare(enemy.location, enemy.type.level);
 					} else if (nav.moveReady()) {
 						Direction enemyDir = loc.directionTo(enemy.location);
-						if (dir != enemyDir && dir != Direction.OMNI) {
+						if (dir != enemyDir && enemyDir != Direction.OMNI) {
 							rc.setDirection(enemyDir);
 						}
 					}
