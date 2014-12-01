@@ -27,6 +27,7 @@ public abstract class BasePlayer {
 	public final MapLocation home;
 	public final int spawnRound;
 	public final MapLocation spawnLoc;
+	public Messager messager;
 
 	// Per Round Variables
 	public double energon, flux;
@@ -55,6 +56,7 @@ public abstract class BasePlayer {
 		cache = new Cache(this);
 		radar = new Radar(this);
 		fluxer = new FluxTransfer(this);
+		messager = new Messager(this);
 	}
 
 	public abstract void run() throws GameActionException;

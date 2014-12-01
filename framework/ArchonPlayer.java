@@ -15,24 +15,20 @@ public class ArchonPlayer extends BasePlayer {
 
 	public ArchonPlayer(RobotController rc) {
 		super(rc);
-		nav.bugSetTarget(new MapLocation(home.x + ID/4 - 5 * (ID%2), home.y + ID/4 - 5));
-		/*
 		try {
 			rc.setDirection(home.directionTo(loc));
 		} catch (GameActionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
+	
 		map.senseAllTiles(); // Cost a shit ton, skips first turn
 		map.senseAllEdges();
-		*/
 	}
 
 	@Override
 	public void run() throws GameActionException {
-		/*
+		
 		if (round < Constants.TURTLE_TILL) {
 			if (loc.distanceSquaredTo(cache.getClosestArchon()) < GameConstants.PRODUCTION_PENALTY_R2) {
 				if (nav.moveReady()) {
@@ -75,9 +71,10 @@ public class ArchonPlayer extends BasePlayer {
 			// Broadcast targeting info
 
 			//
-			if (round % 2 == 0)
+			if (round % 6 == 0){
 				radar.scan(true, true);
-
+				messager.broadcast();
+			}
 			if (nav.moveReady()) {
 				if (flux > 140 && nav.canMove()) {
 					rc.spawn(RobotType.SOLDIER);
@@ -89,10 +86,13 @@ public class ArchonPlayer extends BasePlayer {
 			fluxer.manageFlux();
 
 		}
-		*/
+		
+		/*
 		if(nav.moveReady()){
 			nav.bugMove();
 		}
+		*/
+		
 		myYield();
 	}
 

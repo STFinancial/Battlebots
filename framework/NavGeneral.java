@@ -51,7 +51,7 @@ public class NavGeneral {
 	 */
 	public void bugMove() throws GameActionException {
 			targetDir = bug.computeMove();
-			if(targetDir == Direction.NONE)
+			if(targetDir == Direction.NONE || targetDir == Direction.OMNI)
 				return;
 			if(bp.dir == targetDir){
 				if(canMove()){

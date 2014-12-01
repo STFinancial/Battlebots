@@ -54,23 +54,32 @@ public class NavBug {
 		secondWall = false;
 	}
 
-	public boolean hasTarget(){
+	public boolean hasTarget() {
 		return target != null;
 	}
+
 	/*
-	 * Trys to grab next move from simple Bug Algorithm Returns ideal move direction
-	 * Currently returns Direction.NONE if no move is found/at target (could null instead?)
+	 * Trys to grab next move from simple Bug Algorithm Returns ideal move direction Currently
+	 * returns Direction.NONE if no move is found/at target (could null instead?)
 	 */
 	public Direction computeMove() {
 		if (target == null) {
 			return Direction.NONE;
-		}		
+		}
+		
 		
 		rc.setIndicatorString(0, "dx: " + (target.x - bp.loc.x) + " dy: " + (target.y - bp.loc.y) + " Tracking: " + wallState);
-		if(wallState != WallState.NONE)
-			rc.setIndicatorString(0, "dx: " + (target.x - bp.loc.x) + " dy: " + (target.y - bp.loc.y) + " Tracking: " + wallState + " wallDirection: " + wallDirection + " Next stop: " + (nextStop.x - bp.loc.x) + " , " + (nextStop.y - bp.loc.y) );
+		if (wallState != WallState.NONE) {
+
+			//TODO rather than fix my logic of nextStop being null while we are tracing a wall
+			if(nextStop == null)
+				nextStop = bp.loc;
+			
+			rc.setIndicatorString(0, "dx: " + (target.x - bp.loc.x) + " dy: " + (target.y - bp.loc.y) + " Tracking: " + wallState
+					+ " wallDirection: " + wallDirection + " Next stop: " + (nextStop.x - bp.loc.x) + " , " + (nextStop.y - bp.loc.y));
+		}
 		if (bp.loc.x == target.x && bp.loc.y == target.y) {
-			//We made it!
+			// We made it!
 			target = null;
 			return Direction.NONE;
 		}
@@ -112,22 +121,21 @@ public class NavBug {
 			wallDirection = dir;
 		}
 
-		
-		for (int i = -1; i < 6; i++) {
-			
-			//Direction ordinal increasing by 1 is turning 45 degrees right
+		for (int i = 1; i < 8; i++) {
+
+			// Direction ordinal increasing by 1 is turning 45 degrees right
 			int tracking = -1;
 			if (wallState == WallState.RIGHT) {
 				tracking = 1;
 			}
-			
-			//Start at wall direction minus 45, scan by 45 degrees
+
+			// NORTH is 0, NE is 1, East is 2 etc
 			dir = Constants.directions[(tracking * i + wallDirection.ordinal() + 8) % 8];
 			if (bp.cache.canMove(dir)) {
 				if (wallState == WallState.RIGHT) {
-					wallDirection = dir.rotateLeft();
+					wallDirection = dir.rotateLeft().rotateLeft();
 				} else {
-					wallDirection = dir.rotateRight();
+					wallDirection = dir.rotateRight().rotateRight();
 				}
 				nextStop = bp.loc.add(dir);
 				return dir;
